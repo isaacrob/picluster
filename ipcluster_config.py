@@ -43,7 +43,7 @@ c.IPClusterStart.controller_launcher_class = 'LocalControllerLauncher'
 # 
 # If specified, load this config file in addition to any other IPython config.
 c.IPClusterStart.extra_config_file = u'remotehosts.py'
-c.IPClusterStart.extra_config_file=u'controller.py'
+#c.IPClusterStart.extra_config_file=u'controller.py'
 
 # String id to add to runtime files, to prevent name collisions when using
 # multiple clusters with a single profile simultaneously.

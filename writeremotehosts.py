@@ -4,13 +4,15 @@ import socket, click, os
 @click.command()
 @click.option('--hostfile',default='ipaddresses',help='which hostfile to boot with')
 @click.option('--configfile',default='/home/pi/.ipython/profile_picluster/remotehosts.py',help='which config file to write')
-def writehostdata(hostfile,configfile):
+@click.option('--controller_ip',default='10.40.3.12',help='ip of the cluster controller')
+def writehostdata(hostfile,configfile,controller_ip):
 	file=open(hostfile,'r')
 	readfile=file.read()
 	splithosts=readfile.split('\n')
 	file.close()
 	file=open(configfile,'w')
 	file.write('c = get_config()\n')
+	file.write("c.LocalControllerLauncher.controller_args=['--log-to-file','--log-level=20','--ip="+controller_ip+"']\n")
 	file.write('c.SSHEngineSetLauncher.engines = {')
 	reachable=[]
 	print splithosts

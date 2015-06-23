@@ -1,4 +1,5 @@
 This is the stuff that goes into an IPython profile to controll my drone cluster, which is driven by the stuff in distdrone.
-To work this, change the ip address of the controller.py file to that of your controller and launch with ipcluster start --profile=picluster after creating a profile called picluster and replacing it with this.
+Create an IPython cluster and replace its inner stuff with this.
 Have the ip addresses of the remote Raspberry Pis saved in the file called ipaddresses.
+To configure to your setup, run writeremotehosts.py. Specify the controller's ip with --controller_ip=(the ip).
 The configuration given in all the files is for my particular setup.
