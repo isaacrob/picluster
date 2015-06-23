@@ -43,6 +43,7 @@ c.IPClusterStart.controller_launcher_class = 'LocalControllerLauncher'
 # 
 # If specified, load this config file in addition to any other IPython config.
 c.IPClusterStart.extra_config_file = u'remotehosts.py'
+c.IPClusterStart.extra_config_file=u'controller.py'
 
 # String id to add to runtime files, to prevent name collisions when using
 # multiple clusters with a single profile simultaneously.
@@ -292,7 +293,7 @@ c.IPClusterEngines.engine_launcher_class = 'SSH'
 # Launch a controller as a regular external process.
 
 # command-line args to pass to ipcontroller
-c.LocalControllerLauncher.controller_args = ['--log-to-file', '--log-level=20','--ip=10.40.3.12']
+#c.LocalControllerLauncher.controller_args = ['--log-to-file', '--log-level=20','--ip=10.40.3.12']
 
 # Popen command to launch ipcontroller.
 # c.LocalControllerLauncher.controller_cmd = ['/usr/bin/python', '-m', 'IPython.parallel.controller']

@@ -33,5 +33,5 @@ def writehostdata(hostfile,configfile):
 	file.close()
 
 if __name__=='__main__':
-	os.chdir("/home/pi")
+	#os.chdir("/home/pi")
 	writehostdata()
