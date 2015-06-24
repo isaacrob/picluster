@@ -20,6 +20,8 @@ def writehostdata(hostfile,configfile,controller_ip):
 	for host in splithosts:
 		if host=='':
 			break
+		if str(host)==controller_ip:
+			continue
 		s=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
 		s.settimeout(1)
 		try:
