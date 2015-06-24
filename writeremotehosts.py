@@ -1,5 +1,6 @@
 #! /usr/bin/python
-import socket, click, os
+import socket, click, os, paramiko
+from subprocess import call
 
 @click.command()
 @click.option('--hostfile',default='ipaddresses',help='which hostfile to boot with')
@@ -25,9 +26,21 @@ def writehostdata(hostfile,configfile,controller_ip):
 			s.connect((str(host),22))
 			reachable.append(str(host))
 			print "reached "+str(host)
+			s.close()
 		except:
 			print "could not reach "+str(host)
-		s.close()
+			s.close()
+			continue
+		if call(['ssh','-oBatchMode=yes',str(host),"'date'"])==255:
+			sshhost='pi@'+str(host)
+			c=paramiko.SSHClient()
+			c.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+			c.connect(str(host),username='pi',password='raspberry')
+			c.exec_command('sudo chmod 777 /home/pi/.ssh/authorized_keys')
+			call(['ssh-copy-id','-i','/home/pi/.ssh/id_rsa',sshhost])
+			c.exec_command('sudo chmod 755 /home/pi/.ssh/authorized_keys')
+			c.close()
+			print 'established passwordless ssh to '+str(host)
 	print str(len(reachable))+" hosts reached"
 	for host in reachable:
 		file.write("'"+host+"':1,")
