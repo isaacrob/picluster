@@ -50,6 +50,6 @@ def writehostdata(hostfile,configfile,controller_ip):
 	file.close()
 
 if __name__=='__main__':
-	#os.chdir("/home/pi")
+	#os.chdir("/home/pi/.ipython/profile_picluster")
 	print pwd.getpwuid( os.getuid() ).pw_name
 	writehostdata()
