@@ -33,12 +33,13 @@ def writehostdata(hostfile,configfile,controller_ip):
 			print "could not reach "+str(host)
 			s.close()
 			continue
-		if call(['ssh','-oBatchMode=yes',str(host),"'date'"])==255:
+		if call(['ssh','-oBatchMode=yes','-oStrictHostKeyChecking=no',str(host),"'date'"])==255:
 			sshhost='pi@'+str(host)
 			c=paramiko.SSHClient()
 			c.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 			c.connect(str(host),username='pi',password='raspberry')
 			c.exec_command('sudo chmod 777 /home/pi/.ssh/authorized_keys')
+			call(['ssh-keyscan',str(host)],stdout=open('/home/pi/.ssh/known_hosts','a'))
 			call(['sshpass',"-p'raspberry'",'ssh-copy-id','-i','/home/pi/.ssh/id_rsa',sshhost])
 			c.exec_command('sudo chmod 755 /home/pi/.ssh/authorized_keys')
 			c.close()
