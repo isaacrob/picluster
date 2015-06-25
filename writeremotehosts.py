@@ -51,5 +51,5 @@ def writehostdata(hostfile,configfile,controller_ip):
 
 if __name__=='__main__':
 	#os.chdir("/home/pi")
-	pwd.getpwuid( os.getuid() ).pw_name
+	print pwd.getpwuid( os.getuid() ).pw_name
 	writehostdata()
