@@ -1,5 +1,5 @@
 #! /usr/bin/python
-import socket, click, os, paramiko
+import socket, click, os, paramiko, pwd
 from subprocess import call
 
 @click.command()
@@ -51,4 +51,5 @@ def writehostdata(hostfile,configfile,controller_ip):
 
 if __name__=='__main__':
 	#os.chdir("/home/pi")
+	pwd.getpwuid( os.getuid() ).pw_name
 	writehostdata()
