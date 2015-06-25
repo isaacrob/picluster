@@ -39,8 +39,12 @@ def writehostdata(hostfile,configfile,controller_ip):
 			c.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 			c.connect(str(host),username='pi',password='raspberry')
 			c.exec_command('sudo chmod 777 /home/pi/.ssh/authorized_keys')
+			c.open_sftp().file('/home/pi/.ssh/authorized_keys','a').write(open('/home/pi/.ssh/id_rsa.pub').read())
 			#call(['ssh-keyscan',str(host)],stdout=open('/home/pi/.ssh/known_hosts','a'))
-			call(['sshpass',"-p'raspberry'",'ssh-copy-id','-i','/home/pi/.ssh/id_rsa',sshhost])
+			#print 'mark 1'
+			#call(['sshpass',"-p'raspberry'",'ssh-copy-id','-i','/home/pi/.ssh/id_rsa',sshhost])
+			#call(['ssh-copy-id','-i','/home/pi/.ssh/id_rsa',sshhost])
+			#print 'mark 2'
 			c.exec_command('sudo chmod 755 /home/pi/.ssh/authorized_keys')
 			c.close()
 			print 'established passwordless ssh to '+str(host)
