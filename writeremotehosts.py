@@ -39,7 +39,7 @@ def writehostdata(hostfile,configfile,controller_ip):
 			c.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 			c.connect(str(host),username='pi',password='raspberry')
 			c.exec_command('sudo chmod 777 /home/pi/.ssh/authorized_keys')
-			call(['ssh-keyscan',str(host)],stdout=open('/home/pi/.ssh/known_hosts','a'))
+			#call(['ssh-keyscan',str(host)],stdout=open('/home/pi/.ssh/known_hosts','a'))
 			call(['sshpass',"-p'raspberry'",'ssh-copy-id','-i','/home/pi/.ssh/id_rsa',sshhost])
 			c.exec_command('sudo chmod 755 /home/pi/.ssh/authorized_keys')
 			c.close()
