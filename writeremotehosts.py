@@ -1,6 +1,6 @@
 #! /usr/bin/python
 import socket, click, os, paramiko, pwd
-from subprocess import call
+from subprocess import call, check_output
 
 @click.command()
 @click.option('--hostfile',default='ipaddresses',help='which hostfile to boot with')
@@ -55,6 +55,17 @@ def writehostdata(hostfile,configfile,controller_ip):
 	file.close()
 
 if __name__=='__main__':
+	output=check_output(['ssh-agent'])
+	for cmd in output.split(';\n'):
+		for cmd2 in cmd.split('; '):
+			try:
+				cmd2.index('=')
+				for var,val in [cmd2.split('=')]:
+					print 'setting '+var+' to '+val
+					os.environ[var]=val
+			except:
+				continue
+	call(['ssh-add'])
 	os.chdir("/home/pi/.ipython/profile_picluster")
 	print pwd.getpwuid( os.getuid() ).pw_name
 	writehostdata()
