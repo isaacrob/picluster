@@ -2,10 +2,14 @@
 import socket, click, os, paramiko, pwd
 from subprocess import call, check_output
 
+s=socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
+s.connect(('8.8.8.8',80))
+myip=s.getsockname()[0]
+
 @click.command()
 @click.option('--hostfile',default='ipaddresses',help='which hostfile to boot with')
 @click.option('--configfile',default='/home/pi/.ipython/profile_picluster/remotehosts.py',help='which config file to write')
-@click.option('--controller_ip',default='10.40.3.12',help='ip of the cluster controller')
+@click.option('--controller_ip',default=myip,help='ip of the cluster controller')
 def writehostdata(hostfile,configfile,controller_ip):
 	file=open(hostfile,'r')
 	readfile=file.read()
