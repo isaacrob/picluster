@@ -66,6 +66,8 @@ if __name__=='__main__':
 			except:
 				continue
 	call(['ssh-add'])
+	if not os.path.islink('/usr/local/bin/checknet'):
+		call(['sudo','ln','-s','/home/pi/.ipython/profile_picluster/writeremotehosts.py','/usr/local/bin/checknet'])
 	os.chdir("/home/pi/.ipython/profile_picluster")
 	print pwd.getpwuid( os.getuid() ).pw_name
 	writehostdata()
