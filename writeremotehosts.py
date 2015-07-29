@@ -54,7 +54,7 @@ def writehostdata(hostfile,configfile,controller_ip):
 			print 'established passwordless ssh to '+str(host)
 	print str(len(reachable))+" hosts reached"
 	for host in reachable:
-		file.write("'"+host+"':1,")
+		file.write("'"+host+"':2,")
 	file.write('}\n')
 	file.close()
 
