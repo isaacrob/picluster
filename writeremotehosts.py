@@ -27,7 +27,7 @@ def writehostdata(hostfile,configfile,controller_ip):
 		if str(host)==controller_ip:
 			continue
 		s=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-		s.settimeout(1)
+		s.settimeout(2.5)
 		try:
 			s.connect((str(host),22))
 			reachable.append(str(host))
