@@ -20,7 +20,7 @@ def writehostdata(hostfile,configfile,controller_ip):
 	file.write("c.LocalControllerLauncher.controller_args=['--log-to-file','--log-level=20','--ip="+controller_ip+"']\n")
 	file.write('c.SSHEngineSetLauncher.engines = {')
 	reachable=[]
-	print splithosts
+	print(splithosts)
 	for host in splithosts:
 		if host=='':
 			break
@@ -31,10 +31,10 @@ def writehostdata(hostfile,configfile,controller_ip):
 		try:
 			s.connect((str(host),22))
 			reachable.append(str(host))
-			print "reached "+str(host)
+			print("reached "+str(host))
 			s.close()
 		except:
-			print "could not reach "+str(host)
+			print("could not reach "+str(host))
 			s.close()
 			continue
 		if call(['ssh','-oBatchMode=yes','-oStrictHostKeyChecking=no',str(host),"'date'"])==255:
@@ -51,8 +51,8 @@ def writehostdata(hostfile,configfile,controller_ip):
 			#print 'mark 2'
 			c.exec_command('sudo chmod 755 /home/pi/.ssh/authorized_keys')
 			c.close()
-			print 'established passwordless ssh to '+str(host)
-	print str(len(reachable))+" hosts reached"
+			print('established passwordless ssh to '+str(host))
+	print(str(len(reachable))+" hosts reached")
 	for host in reachable:
 		file.write("'"+host+"':2,")
 	file.write('}\n')
@@ -65,7 +65,7 @@ if __name__=='__main__':
 			try:
 				cmd2.index('=')
 				for var,val in [cmd2.split('=')]:
-					print 'setting '+var+' to '+val
+					print('setting '+var+' to '+val)
 					os.environ[var]=val
 			except:
 				continue
@@ -73,5 +73,5 @@ if __name__=='__main__':
 	if not os.path.islink('/usr/local/bin/checknet'):
 		call(['sudo','ln','-s','/home/pi/.ipython/profile_picluster/writeremotehosts.py','/usr/local/bin/checknet'])
 	os.chdir("/home/pi/.ipython/profile_picluster")
-	print pwd.getpwuid( os.getuid() ).pw_name
+	print(pwd.getpwuid( os.getuid() ).pw_name)
 	writehostdata()
